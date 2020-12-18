@@ -12,7 +12,7 @@ module.exports = {
                 const { postId } = args;
                 // console.log(postId);
                 const user = await UserCtrl.isLoggedIn(ctx);
-                let likedComments;
+                let likedComments = [];
                 if (user) {
                     likedComments = await CommentLike.find({
                         postId,
@@ -23,11 +23,15 @@ module.exports = {
                 const comments = await CommentCtrl.getAllComments(postId);
 
                 // const updatedComments = [];
-                for (let i = 0; i < comments.length; i++) {
-                    for (let j = 0; j < likedComments.length; j++) {
-                        if (`${comments[i]._id}` === `${likedComments[j].commentId}`) {
-                            comments[i] = { ...comments[i]._doc, userLiked: true };
-                            break;
+                if (likedComments.length > 0) {
+                    for (let i = 0; i < comments.length; i++) {
+                        for (let j = 0; j < likedComments.length; j++) {
+                            if (
+                                `${comments[i]._id}` === `${likedComments[j].commentId}`
+                            ) {
+                                comments[i] = { ...comments[i]._doc, userLiked: true };
+                                break;
+                            }
                         }
                     }
                 }
