@@ -1,0 +1,31 @@
+{
+    "name": "converse-backend",
+    "version": "1.0.0",
+    "description": "",
+    "private": "true",
+    "main": "server.js",
+    "scripts": {
+        "test": "echo \"Error: no test specified\" && exit 1",
+        "start": "nodemon server.js"
+    },
+    "author": "Tousif",
+    "license": "UNLICENSED",
+    "dependencies": {
+        "@koa/cors": "^3.1.0",
+        "@koa/router": "^10.0.0",
+        "apollo-server": "^2.19.0",
+        "apollo-server-express": "^2.19.0",
+        "apollo-server-koa": "^2.19.0",
+        "bcrypt": "^5.0.0",
+        "dotenv": "^8.2.0",
+        "express": "^4.17.1",
+        "graphql-scalars": "^1.5.0",
+        "jsonwebtoken": "^8.5.1",
+        "koa": "^2.13.0",
+        "koa-404-handler": "^0.0.2",
+        "koa-better-error-handler": "^6.0.1",
+        "koa-body": "^4.2.0",
+        "koa-logger": "^3.2.1",
+        "mongoose": "^5.10.11"
+    }
+}
