@@ -15,9 +15,9 @@ process.on("uncaughtException", (err) => {
 dotenv.config();
 
 const pubsub = new PubSub();
-// const DB = process.env.DATABASE.replace("<PASSWORD>", process.env.DB_PASSWORD);
+const DB = process.env.DATABASE.replace("<PASSWORD>", process.env.DB_PASSWORD);
 
-const DB = process.env.LOCAL_DB;
+// const DB = process.env.LOCAL_DB;
 
 mongoose
     .connect(DB, {
