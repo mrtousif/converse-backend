@@ -42,7 +42,7 @@ const server = new ApolloServer({
     context: ({ req }) => ({ req, pubsub }),
 });
 
-server.applyMiddleware({ app });
+server.applyMiddleware({ app, path: "/" });
 
 let DB = "";
 if (process.env.NODE_ENV === "production") {
@@ -53,15 +53,15 @@ if (process.env.NODE_ENV === "production") {
 
 const PORT = process.env.PORT || 4000;
 
-app.all("/*", (req, res, next) => {
-    // const err = new Error(`${req.url} does not exist`);
-    // err.statusCode = 404;
-    // err.status = 'fail';
-    res.status(404).json({
-        status: "fail",
-        message: `${req.url} does not exist. Use /graphql to access the graphql api`,
-    });
-});
+// app.all("/*", (req, res, next) => {
+//     // const err = new Error(`${req.url} does not exist`);
+//     // err.statusCode = 404;
+//     // err.status = 'fail';
+//     res.status(404).json({
+//         status: "fail",
+//         message: `${req.url} does not exist. Use /graphql to access the graphql api`,
+//     });
+// });
 
 mongoose
     .connect(DB, {
