@@ -5,8 +5,23 @@ const { ApolloServer, PubSub } = require("apollo-server-express");
 const typeDefs = require("./graphql/typeDefs");
 const resolvers = require("./graphql/resolvers");
 const pino = require("express-pino-logger")();
+const cors = require("cors");
 
 const app = express();
+
+let origin = "http://localhost:3000";
+if (process.env.NODE_ENV === "production") {
+    origin = /vercel\.app$/;
+} else {
+    origin = "http://localhost:3000";
+}
+
+app.use(
+    cors({
+        origin: origin,
+        credentials: true,
+    })
+);
 app.use(pino);
 
 process.on("uncaughtException", (err) => {
@@ -21,12 +36,26 @@ dotenv.config();
 
 const pubsub = new PubSub();
 
+const server = new ApolloServer({
+    typeDefs,
+    resolvers,
+    context: ({ req }) => ({ req, pubsub }),
+});
+
+server.applyMiddleware({ app });
+
 let DB = "";
 if (process.env.NODE_ENV === "production") {
     DB = process.env.DATABASE.replace("<PASSWORD>", process.env.DB_PASSWORD);
 } else {
     DB = process.env.LOCAL_DB;
 }
+
+const PORT = process.env.PORT || 4000;
+
+app.all("*", (req, res) => {
+    res.redirect();
+});
 
 mongoose
     .connect(DB, {
@@ -37,22 +66,25 @@ mongoose
     })
     .then((con) => {
         console.log("Database Connected");
+        app.listen({ port: PORT }, () => {
+            console.log(
+                `🚀 Server ready at http://localhost:${PORT}${server.graphqlPath}`
+            );
+        });
     })
     .catch((err) => console.error("Database Connection Failure"));
-
-const server = new ApolloServer({
-    typeDefs,
-    resolvers,
-    context: ({ req }) => ({ req, pubsub }),
-});
-
-server.applyMiddleware({ app });
-
-const PORT = process.env.PORT || 4000;
-
-app.listen({ port: PORT }, () => {
-    console.log(`🚀 Server ready at http://localhost:${PORT}${server.graphqlPath}`);
-});
 // app.listen({ port: 5000 }, () =>
 //     console.log(`🚀 Server ready at http://localhost:5000${server.graphqlPath}`)
 // );
+
+process.on("unhandledRejection", (err) => {
+    console.log("Unhandled Rejection");
+    console.error(err);
+    console.log("Shutting Down the server...");
+    // safely close
+    db.close();
+    server.close(() => {
+        // kill
+        process.exit(1);
+    });
+});

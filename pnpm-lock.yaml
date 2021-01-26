@@ -1,6 +1,7 @@
 dependencies:
   apollo-server-express: 2.19.2_graphql@15.4.0
   bcrypt: 5.0.0
+  cors: 2.8.5
   dotenv: 8.2.0
   express: 4.17.1
   express-pino-logger: 5.0.0
@@ -2020,6 +2021,7 @@ packages:
 specifiers:
   apollo-server-express: ^2.19.2
   bcrypt: ^5.0.0
+  cors: ^2.8.5
   dotenv: ^8.2.0
   express: ^4.17.1
   express-pino-logger: ^5.0.0
