@@ -5,38 +5,38 @@ const typeDefs = require("./graphql/typeDefs");
 const resolvers = require("./graphql/resolvers");
 
 process.on("uncaughtException", (err) => {
-    console.error("Uncaught Exception");
-    console.error(err);
-    console.error("Shutting Down the server...");
-    // kill
-    process.exit(1);
+  console.error("Uncaught Exception");
+  console.error(err);
+  console.error("Shutting Down the server...");
+  // kill
+  process.exit(1);
 });
 
 dotenv.config();
 
 const pubsub = new PubSub();
-const DB = process.env.DATABASE.replace("<PASSWORD>", process.env.DB_PASSWORD);
+// const DB = process.env.DATABASE.replace("<PASSWORD>", process.env.DB_PASSWORD);
 
-// const DB = process.env.LOCAL_DB;
+const DB = process.env.LOCAL_DB;
 
 mongoose
-    .connect(DB, {
-        useNewUrlParser: true,
-        useCreateIndex: true,
-        useFindAndModify: false,
-        useUnifiedTopology: true,
-    })
-    .then((con) => {
-        console.log("Database Connected");
-    })
-    .catch((err) => console.error("Database Connection Failure"));
+  .connect(DB, {
+    useNewUrlParser: true,
+    useCreateIndex: true,
+    useFindAndModify: false,
+    useUnifiedTopology: true,
+  })
+  .then((con) => {
+    console.log("Database Connected");
+  })
+  .catch((err) => console.error("Database Connection Failure"));
 
 const server = new ApolloServer({
-    typeDefs,
-    resolvers,
-    context: ({ req }) => ({ req, pubsub }),
+  typeDefs,
+  resolvers,
+  context: ({ req }) => ({ req, pubsub }),
 });
 
 server.listen({ port: process.env.PORT || 4000 }).then(({ url }) => {
-    console.log(`🚀 Server ready at ${url}`);
+  console.log(`🚀 Server ready at ${url}`);
 });
