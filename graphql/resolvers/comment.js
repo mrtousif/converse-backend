@@ -74,6 +74,7 @@ module.exports = {
         createComment: async (_, args, context) => {
             try {
                 const { body, postId, pageUrl } = args;
+                // console.log(body);
                 const user = await UserCtrl.protect(context);
                 const comment = await CommentCtrl.createComment({
                     body,
