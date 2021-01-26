@@ -10,7 +10,7 @@ module.exports = {
         getComments: async (_, args, ctx) => {
             try {
                 const { postId } = args;
-                // console.log(postId);
+                // console.log(ctx.req.body);
                 const user = await UserCtrl.isLoggedIn(ctx);
                 let likedComments = [];
                 if (user) {
