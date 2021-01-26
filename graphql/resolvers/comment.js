@@ -1,7 +1,7 @@
 const CommentCtrl = require("../../comment/comment.controller");
 const UserCtrl = require("../../user/user.controller");
 const CommentLike = require("../../comment/commentLike.model");
-// const { AuthenticationError } = require("apollo-server");
+// const { AuthenticationError } = require("apollo-server-express");
 
 module.exports = {
     Subscription: {},

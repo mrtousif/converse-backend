@@ -2,7 +2,11 @@ const Comment = require("./comment.model");
 const CommentLike = require("./commentLike.model");
 const Profile = require("../profile/profile.model");
 // const Website = require("../website/website.model");
-const { ValidationError, UserInputError, AuthenticationError } = require("apollo-server");
+const {
+    ValidationError,
+    UserInputError,
+    AuthenticationError,
+} = require("apollo-server-express");
 
 // const APIFeatures = require("../utils/APIFeatures");
 // const factory = require('./handlerFactory');

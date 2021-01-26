@@ -7,7 +7,7 @@ const ReplyLike = require("./replyLike.model");
 // const APIFeatures = require("../utils/APIFeatures");
 // const factory = require('./handlerFactory');
 
-const { AuthenticationError, UserInputError } = require("apollo-server");
+const { AuthenticationError, UserInputError } = require("apollo-server-express");
 
 exports.createReply = async ({ commentId, body, user }) => {
     //check if websiteid exists

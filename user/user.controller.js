@@ -5,7 +5,7 @@ const User = require("./user.model");
 const Profile = require("../profile/profile.model");
 // const backblaze = require("./backblaze");
 
-const { ValidationError, AuthenticationError } = require("apollo-server");
+const { ValidationError, AuthenticationError } = require("apollo-server-express");
 
 // const downloadUrl = backblaze();
 // const Email = require("../utils/Email");

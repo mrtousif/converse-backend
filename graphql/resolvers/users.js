@@ -1,4 +1,4 @@
-const { UserInputError } = require("apollo-server");
+const { UserInputError } = require("apollo-server-express");
 const userCtrl = require("../../user/user.controller");
 
 module.exports = {
