@@ -9,19 +9,20 @@ const cors = require("cors");
 
 const app = express();
 
-let origin = "http://localhost:3000";
-if (process.env.NODE_ENV === "production") {
-    origin = /vercel\.app$/;
-} else {
-    origin = "http://localhost:3000";
-}
+// let origin = "http://localhost:3000";
+// if (process.env.NODE_ENV === "production") {
+//     origin = /vercel\.app$/;
+// } else {
+//     origin = "http://localhost:3000";
+// }
 
-app.use(
-    cors({
-        origin: origin,
-        credentials: true,
-    })
-);
+// app.use(
+//     cors({
+//         origin: origin,
+//         credentials: true,
+//     })
+// );
+// app.use(express.json());
 app.use(pino);
 
 process.on("uncaughtException", (err) => {
